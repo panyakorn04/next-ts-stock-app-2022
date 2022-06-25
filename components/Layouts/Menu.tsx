@@ -16,6 +16,11 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
 const drawerWidth = 240;
 
+/**
+ * It returns a styled component that takes a theme and an open prop, and returns a CSS object that
+ * either returns the openedMixin or the closedMixin depending on the open prop.
+ * @param {Theme} theme - Theme - this is the theme object that is passed to the component.
+ */
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
     transition: theme.transitions.create("width", {

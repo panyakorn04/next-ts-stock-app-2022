@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Header from '@/components/Layouts/Header';
 import Menu from '@/components/Layouts/Menu';
 
+/* A styled component. */
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -14,6 +15,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
+/* Defining the type of the children prop. */
 interface LayoutProps {
     children: React.ReactNode;
 }
@@ -33,3 +35,4 @@ export default function Layout({ children }: LayoutProps) {
         </Box>
     );
 }
+ 
