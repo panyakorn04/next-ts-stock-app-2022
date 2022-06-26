@@ -15,9 +15,8 @@ interface SingleProp {
     data: string;
 }
 interface SignAction {
-    username: string;
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
 }
 
 const initialState: UserState = {
@@ -31,15 +30,16 @@ const initialState: UserState = {
 export const signIn = createAsyncThunk(
     "user/signIn",
     async (credential: SignAction) => {
-      const p1 = new Promise((res) => setTimeout(() => res({singIn: "success"}),1000));
-      return await p1;
+        const response = await serverService.signIn(credential);
+        return response;
+      
     }
 );
 export const signUp = createAsyncThunk(
     "user/signUp",
     async (credential: SignAction) => {
       const response = serverService.signUp(credential);
-      return response.data;
+      return response;
     }
 );
 
@@ -58,9 +58,10 @@ const userSlice = createSlice({
             state.isAuthenticating = true;
         })
         .addCase(signIn.fulfilled, (state, action: any) => {
-            state.username = action.payload.result;
-            state.isAuthenticating = false;
+            state.accessToken = action.payload.token;
             state.isAuthenticated = true;
+            state.isAuthenticating = false;
+            state.user = action.payload.user;
         })
         .addCase(signIn.rejected, (state, action) => {
             state.isAuthenticating = false;

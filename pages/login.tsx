@@ -14,13 +14,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from "next/link";
+import { useAppDispatch } from "@/store/store";
+import { signIn } from "@/store/slices/userSlice";
 
 
 type Props = {};
 
 const Login = ({ }: Props) => {
     const router = useRouter();
-
+    const dispatch = useAppDispatch();
     const showForm = ({
         values,
         setFieldValue,
@@ -32,12 +34,12 @@ const Login = ({ }: Props) => {
             <Form onSubmit={handleSubmit} >
                 <Field
                     component={TextField}
-                    name="username"
-                    id="username"
+                    name="email"
+                    id="email"
                     margin="normal"
                     required
                     fullWidth
-                    label="Username"
+                    label="email"
                     autoComplete="email"
                     autoFocus
                 />
@@ -93,15 +95,15 @@ const Login = ({ }: Props) => {
                     </h1>
                     <CardContent>
                         <Formik
-                        // initialValues={{ username: "", password: "" }}
-                        // onSubmit={async (values) => {
-                        //     const response = await dispatch(signIn(values));
-                        //     if (response.meta.requestStatus === "rejected") {
-                        //       alert("Login failed");
-                        //     } else {
-                        //       router.push("/stock");
-                        //     }
-                        //   }}
+                            initialValues={{ email: "", password: "" }}
+                            onSubmit={async (values) => {
+                                const response = await dispatch(signIn(values));
+                                if (response.meta.requestStatus === "rejected") {
+                                    alert("Login failed");
+                                } else {
+                                    router.push("/stock");
+                                }
+                            }}
                         >
                             {(props) => showForm(props)}
                         </Formik>
